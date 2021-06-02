@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd" version="2.1">
+    <persistence-unit name="demo-jpa-javax" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <properties>
+            <property name="javax.persistence.jdbc.url"
+                      value="jdbc:mysql://bu8gb2ophb3alwugrteo-mysql.services.clever-cloud.com:3306/bu8gb2ophb3alwugrteo?serverTimezone=Europe/Paris"/>
+            <property name="javax.persistence.jdbc.user" value="uccmzjxgkvuqk6z1"/>
+            <property name="javax.persistence.jdbc.password" value="UkSVy4CzKqB9MgGE9pzT"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="javax.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver"/>
+            <property name="hibernate.dialect"
+                      value="org.hibernate.dialect.MySQL8Dialect"/>
+            <property name="hibernate.format_sql" value="true"></property>
+        </properties>
+    </persistence-unit>
+</persistence>
