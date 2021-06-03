@@ -3,6 +3,7 @@ package fr.diginamic.jpa.bo;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -33,6 +34,7 @@ public class Emprunt implements Serializable {
     private Set<Livre> livres;
 
     public Emprunt() {
+        livres = new HashSet<Livre>();
     }
 
     public Emprunt(Long id) {

@@ -15,19 +15,20 @@ public class TestBibliotheque {
 
     public static void main(String[] args) {
 
-        Emprunt emprunt = em.find( Emprunt.class, 1L );
-        for( Livre associatedRole : emprunt.getLivres() ) {
-            System.out.println( associatedRole );
+        Emprunt emprunt = em.find(Emprunt.class, 1L);
+        for (Livre livre : emprunt.getLivres()) {
+            System.out.println(livre);
         }
 
 
         System.out.println("--------------");
 
 
-        Client client = em.find(Client.class,1L);
-        for (Emprunt emp :client.getEmprunts()){
+        Client client = em.find(Client.class, 1L);
+        for (Emprunt emp : client.getEmprunts()) {
             System.out.println(emp.getLivres());
         }
-
+        emf.close();
+        em.close();
     }
 }
