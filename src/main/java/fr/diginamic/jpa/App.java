@@ -1,12 +1,10 @@
-package fr.diginamic.javax;
+package fr.diginamic.jpa;
 
-import fr.diginamic.javax.bo.Fournisseur;
-import fr.diginamic.javax.bo.Livre;
+import fr.diginamic.jpa.bll.LivreService;
+import fr.diginamic.jpa.bo.Fournisseur;
+import fr.diginamic.jpa.bo.Livre;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.util.List;
 
 public class App {
@@ -15,8 +13,19 @@ public class App {
     private static EntityManager em = emf.createEntityManager();
 
     public static void main(String[] args) {
+
+
+        LivreService service = LivreService.getSingle();
+
+
+        List<Livre> livreList = service.listLivre();
+        for (Livre l : livreList) {
+            System.out.println(l);
+        }
         findOneForurnisseur(1L);
-        setNewFournisseur("La Maison de la Peinture2");
+       getLivreByTitle("Test liver Insert");
+
+        //setNewFournisseur("La Maison de la Peinture2");
         /*
 
 
@@ -79,18 +88,6 @@ public class App {
         }
     }
 
-    /**
-     * list livre
-     *
-     * @return {@link List}
-     * @see List
-     * @see Livre
-     */
-    private static List<Livre> listLivre() {
-        TypedQuery<Livre> query = em.createQuery("SELECT e FROM Livre e ", Livre.class);
-        List<Livre> livres = query.getResultList();
-        return livres;
-    }
 
     /**
      * set new livre
@@ -112,10 +109,13 @@ public class App {
      * @return {@link Livre}
      * @see Livre
      */
-    private static Livre getLivreByTitle(String title){
-        TypedQuery<Livre> typed = em.createQuery("SELECT e FROM Livre e WHERE e.titre=:titre", Livre.class).setParameter("titre", title);
+    private static List<Livre> getLivreByTitle(String title) {
+        TypedQuery<Livre> typed = em.createQuery("SELECT l FROM Livre l WHERE l.titre=:titre", Livre.class).setParameter("titre", title);
         try {
-            return typed.getSingleResult();
+            List<Livre> livres = typed.getResultList();
+
+
+            return livres;
         } catch (final NoResultException nre) {
             return null;
         }
@@ -128,7 +128,7 @@ public class App {
      * @return {@link Livre}
      * @see Livre
      */
-    private static Livre getLivreByAuthor(String author){
+    private static Livre getLivreByAuthor(String author) {
         TypedQuery<Livre> typed = em.createQuery("SELECT e FROM Livre e WHERE e.auteur=:auteur", Livre.class).setParameter("auteur", author);
         try {
             return typed.getSingleResult();

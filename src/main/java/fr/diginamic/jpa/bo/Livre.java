@@ -1,4 +1,4 @@
-package fr.diginamic.javax.bo;
+package fr.diginamic.jpa.bo;
 
 import javax.persistence.*;
 import java.io.Serializable;
