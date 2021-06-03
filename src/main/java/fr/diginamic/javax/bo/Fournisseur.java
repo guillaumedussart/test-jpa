@@ -14,6 +14,9 @@ public class Fournisseur implements Serializable {
     @Transient
     private String adresse;
 
+
+
+
     public Fournisseur() {
     }
 
@@ -69,4 +72,7 @@ public class Fournisseur implements Serializable {
                 ", nom='" + nom + '\'' +
                 '}';
     }
+
+
+
 }
