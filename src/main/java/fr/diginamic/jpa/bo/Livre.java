@@ -2,6 +2,7 @@ package fr.diginamic.jpa.bo;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "LIVRE")
@@ -14,6 +15,8 @@ public class Livre implements Serializable {
     private String titre;
     private String auteur;
 
+    @ManyToMany(mappedBy = "livres")
+    private Set<Emprunt> reservations;
 
     public Livre(Long id) {
         this.id = id;
@@ -31,6 +34,13 @@ public class Livre implements Serializable {
     public Livre(String titre, String auteur) {
         this.titre = titre;
         this.auteur = auteur;
+    }
+
+    public Livre(Long id, String titre, String auteur, Set<Emprunt> reservations) {
+        this.id = id;
+        this.titre = titre;
+        this.auteur = auteur;
+        this.reservations = reservations;
     }
 
     /**
@@ -95,5 +105,23 @@ public class Livre implements Serializable {
         sb.append(", auteur='").append(auteur).append('\'');
         sb.append('}');
         return sb.toString();
+    }
+
+    /**
+     * get field @ManyToMany(mappedBy="chambres")
+     *
+     * @return reservations @ManyToMany(mappedBy="chambres")
+     */
+    public Set<Emprunt> getReservations() {
+        return this.reservations;
+    }
+
+    /**
+     * set field @ManyToMany(mappedBy="chambres")
+     *
+     * @param reservations @ManyToMany(mappedBy="chambres")
+     */
+    public void setReservations(Set<Emprunt> reservations) {
+        this.reservations = reservations;
     }
 }
