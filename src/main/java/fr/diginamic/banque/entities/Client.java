@@ -2,6 +2,7 @@ package fr.diginamic.banque.entities;
 
 
 import fr.diginamic.jpa.bo.Emprunt;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -25,6 +26,10 @@ public class Client extends Adresse implements Serializable {
     @Column(name = "birthday", nullable = false)
     private LocalDate birthday;
 
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "id_banque")
+    private Banque banque;
 
 
     @ManyToMany
@@ -61,6 +66,24 @@ public class Client extends Adresse implements Serializable {
         this.birthday = birthday;
         this.comptes = comptes;
     }
+
+    public Client(String lastname, String firstname, LocalDate birthday, Banque banque, Set<Compte> comptes) {
+        this.lastname = lastname;
+        this.firstname = firstname;
+        this.birthday = birthday;
+        this.banque = banque;
+        this.comptes = comptes;
+    }
+
+    public Client(int number, String street, int postalCode, String country, String lastname, String firstname, LocalDate birthday, Banque banque, Set<Compte> comptes) {
+        super(number, street, postalCode, country);
+        this.lastname = lastname;
+        this.firstname = firstname;
+        this.birthday = birthday;
+        this.banque = banque;
+        this.comptes = comptes;
+    }
+
     /**
      * get field @Id
      *
@@ -135,18 +158,16 @@ public class Client extends Adresse implements Serializable {
 
     /**
      * get field @ManyToMany
-     @JoinTable(name = "client_compte",
-     joinColumns = @JoinColumn(name = "id_client", referencedColumnName = "id"),
-     inverseJoinColumns = @JoinColumn(name = "id_compte", referencedColumnName = "id")
-     )
-
-      *
-      * @return comptes @ManyToMany
-     @JoinTable(name = "client_compte",
-     joinColumns = @JoinColumn(name = "id_client", referencedColumnName = "id"),
-     inverseJoinColumns = @JoinColumn(name = "id_compte", referencedColumnName = "id")
-     )
-
+     *
+     * @return comptes @ManyToMany
+     * @JoinTable(name = "client_compte",
+     * joinColumns = @JoinColumn(name = "id_client", referencedColumnName = "id"),
+     * inverseJoinColumns = @JoinColumn(name = "id_compte", referencedColumnName = "id")
+     * )
+     * @JoinTable(name = "client_compte",
+     * joinColumns = @JoinColumn(name = "id_client", referencedColumnName = "id"),
+     * inverseJoinColumns = @JoinColumn(name = "id_compte", referencedColumnName = "id")
+     * )
      */
     public Set<Compte> getComptes() {
         return this.comptes;
@@ -154,20 +175,53 @@ public class Client extends Adresse implements Serializable {
 
     /**
      * set field @ManyToMany
-     @JoinTable(name = "client_compte",
-     joinColumns = @JoinColumn(name = "id_client", referencedColumnName = "id"),
-     inverseJoinColumns = @JoinColumn(name = "id_compte", referencedColumnName = "id")
-     )
-
-      *
-      * @param comptes @ManyToMany
-     @JoinTable(name = "client_compte",
-     joinColumns = @JoinColumn(name = "id_client", referencedColumnName = "id"),
-     inverseJoinColumns = @JoinColumn(name = "id_compte", referencedColumnName = "id")
-     )
-
+     *
+     * @param comptes @ManyToMany
+     * @JoinTable(name = "client_compte",
+     * joinColumns = @JoinColumn(name = "id_client", referencedColumnName = "id"),
+     * inverseJoinColumns = @JoinColumn(name = "id_compte", referencedColumnName = "id")
+     * )
+     * @JoinTable(name = "client_compte",
+     * joinColumns = @JoinColumn(name = "id_client", referencedColumnName = "id"),
+     * inverseJoinColumns = @JoinColumn(name = "id_compte", referencedColumnName = "id")
+     * )
      */
     public void setComptes(Set<Compte> comptes) {
         this.comptes = comptes;
+    }
+
+
+    /**
+     * get field @ManyToOne(cascade = CascadeType.PERSIST)
+     @JoinColumn(name = "id_banque")
+
+      *
+      * @return banque @ManyToOne(cascade = CascadeType.PERSIST)
+     @JoinColumn(name = "id_banque")
+
+     */
+    public Banque getBanque() {
+        return this.banque;
+    }
+
+    /**
+     * set field @ManyToOne(cascade = CascadeType.PERSIST)
+     @JoinColumn(name = "id_banque")
+
+      *
+      * @param banque @ManyToOne(cascade = CascadeType.PERSIST)
+     @JoinColumn(name = "id_banque")
+
+     */
+    public void setBanque(Banque banque) {
+        if (this.banque != null) {
+            this.banque.getClients().remove(this);
+        }
+
+        this.banque = banque;
+
+        if (this.banque != null) {
+            this.banque.getClients().add(this);
+        }
     }
 }
