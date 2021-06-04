@@ -127,4 +127,15 @@ public class Client implements Serializable {
     public void setEmprunts(Set<Emprunt> emprunts) {
         this.emprunts = emprunts;
     }
+
+    /**
+     * add emprunt
+     *
+     * @param emprunt emprunt
+     */
+    public void addEmprunt(Emprunt emprunt) {
+        if (emprunt != null) {
+            emprunt.setClient(this);
+        }
+    }
 }

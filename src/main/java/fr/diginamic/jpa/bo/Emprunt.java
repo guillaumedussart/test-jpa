@@ -175,7 +175,15 @@ public class Emprunt implements Serializable {
      * @JoinColumn(name = "ID_CLIENT")
      */
     public void setClient(Client client) {
+        if (this.client != null) {
+            this.client.getEmprunts().remove(this);
+        }
+
         this.client = client;
+
+        if (this.client != null) {
+            this.client.getEmprunts().add(this);
+        }
     }
 
     /**
@@ -216,4 +224,5 @@ public class Emprunt implements Serializable {
         this.livres = livres;
         return null;
     }
+
 }

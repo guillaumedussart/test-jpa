@@ -15,7 +15,7 @@ public class Livre implements Serializable {
     private String titre;
     private String auteur;
 
-    @ManyToMany(mappedBy = "livres")
+    @ManyToMany(mappedBy = "livres",fetch = FetchType.EAGER)
     private Set<Emprunt> reservations;
 
     public Livre(Long id) {
