@@ -10,9 +10,10 @@ import java.util.Set;
 public class Compte implements Serializable {
 
     @Id
+    @GeneratedValue
     private Long id;
 
-    @Column(name = "number", nullable = false, length = 50)
+    @Column(name = "number", nullable = false, length = 50,unique = true)
     private String number;
 
     @Column(name = "balance", nullable = false)
@@ -39,6 +40,11 @@ public class Compte implements Serializable {
         this.balance = balance;
         this.clients = clients;
         this.operations = operations;
+    }
+
+    public Compte(String number, double balance) {
+        this.number = number;
+        this.balance = balance;
     }
 
     /**

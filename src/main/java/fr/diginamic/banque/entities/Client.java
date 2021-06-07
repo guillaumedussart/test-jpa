@@ -15,6 +15,7 @@ import java.util.Set;
 public class Client extends Adresse implements Serializable {
 
     @Id
+    @GeneratedValue
     private Long id;
 
     @Column(name = "lastname", nullable = false, length = 100)
@@ -58,9 +59,8 @@ public class Client extends Adresse implements Serializable {
         this.birthday = birthday;
     }
 
-    public Client(int number, String street, int postalCode, String country, Long id, String lastname, String firstname, LocalDate birthday, Set<Compte> comptes) {
+    public Client(int number, String street, int postalCode, String country, String lastname, String firstname, LocalDate birthday, Set<Compte> comptes) {
         super(number, street, postalCode, country);
-        this.id = id;
         this.lastname = lastname;
         this.firstname = firstname;
         this.birthday = birthday;
@@ -82,6 +82,13 @@ public class Client extends Adresse implements Serializable {
         this.birthday = birthday;
         this.banque = banque;
         this.comptes = comptes;
+    }
+
+    public Client(int number, String street, int postalCode, String country, String lastname, String firstname, LocalDate birthday) {
+        super(number, street, postalCode, country);
+        this.lastname = lastname;
+        this.firstname = firstname;
+        this.birthday = birthday;
     }
 
     /**

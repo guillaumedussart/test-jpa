@@ -33,6 +33,11 @@ public class LivretA extends Compte implements Serializable {
 
     }
 
+    public LivretA(String number, double balance, double rate) {
+        super(number, balance);
+        this.rate = rate;
+    }
+
     /**
      * get field @Id
      @GeneratedValue

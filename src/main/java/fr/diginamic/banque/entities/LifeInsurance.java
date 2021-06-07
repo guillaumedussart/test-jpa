@@ -39,6 +39,12 @@ public class LifeInsurance extends Compte implements Serializable {
         this.rate = rate;
     }
 
+    public LifeInsurance(String number, double balance, LocalDate end_date, double rate) {
+        super(number, balance);
+        this.end_date = end_date;
+        this.rate = rate;
+    }
+
     /**
      * get field @Id
      @GeneratedValue
